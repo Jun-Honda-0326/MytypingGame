@@ -19,7 +19,6 @@
   const scoreLabel = document.getElementById('score');
   const missLabel = document.getElementById('miss');
   
-  target.textContent = word;
   // 正解した文字をアンダーバーにする処理
   function updateTarget(){
     let placeholder = '';
@@ -28,6 +27,11 @@
     }
     target.textContent = placeholder + word.substring(loc);
   }
+
+  window.addEventListener('click',() =>{
+    target.textContent = word;
+  } );
+
   // 画面がキーダウンされた場合に処理が発動
   window.addEventListener('keydown', e =>{
     if (e.key === word[loc]){
