@@ -1,6 +1,4 @@
 'user strict';
-
-
 {
   // 単語の配列
   const words = [
@@ -20,7 +18,7 @@
   const target = document.getElementById('target');
   const scoreLabel = document.getElementById('score');
   const missLabel = document.getElementById('miss');
-  const timeLabel = document.getElementById('timer');
+  const timerLabel = document.getElementById('timer');
   
   // 正解した文字をアンダーバーにする処理
   function updateTarget(){
@@ -33,14 +31,23 @@
   // タイマー処理の関数
   function updateTimer(){
     const timeLeft = startTime + timeLimit - Date.now();
-    timeLabel.textContent = (timeLeft / 1000).toFixed(2);
+    timerLabel.textContent = (timeLeft / 1000).toFixed(2);
+
+    const timeoutId =  setTimeout (() => {
+      updateTimer();
+     }, 10);
+
+     if (timeLeft < 0){
+       clearTimeout(timeoutId);
+       alert('Game Over');
+     }
   }
 
   window.addEventListener('click',() =>{
     target.textContent = word;
-    startTime = Date.now;
+    startTime = Date.now();
     updateTimer();
-  } );
+  });
 
   // 画面がキーダウンされた場合に処理が発動
   window.addEventListener('keydown', e =>{
