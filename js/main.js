@@ -14,10 +14,13 @@
   let loc = 0;
   let score = 0;
   let miss = 0;
+  const timeLimit = 3 * 1000;
+  let startTime;
 
   const target = document.getElementById('target');
   const scoreLabel = document.getElementById('score');
   const missLabel = document.getElementById('miss');
+  const timeLabel = document.getElementById('timer');
   
   // 正解した文字をアンダーバーにする処理
   function updateTarget(){
@@ -27,9 +30,16 @@
     }
     target.textContent = placeholder + word.substring(loc);
   }
+  // タイマー処理の関数
+  function updateTimer(){
+    const timeLeft = startTime + timeLimit - Date.now();
+    timeLabel.textContent = (timeLeft / 1000).toFixed(2);
+  }
 
   window.addEventListener('click',() =>{
     target.textContent = word;
+    startTime = Date.now;
+    updateTimer();
   } );
 
   // 画面がキーダウンされた場合に処理が発動
