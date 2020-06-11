@@ -2,7 +2,14 @@
 
 
 {
-  const word = "apple";
+  const words = [
+    'apple',
+    'sky',
+    'blue',
+    'middle',
+    'set',
+  ];
+  let word = words[Math.floor(Math.random()* words.length)];
   let loc = 0;
   let score = 0;
   let miss = 0;
@@ -24,6 +31,10 @@
   window.addEventListener('keydown', e =>{
     if (e.key === word[loc]){
       loc++;
+      if (loc === word.length){
+        word = words[Math.floor(Math.random()* words.length)];
+        loc = 0;
+      }
       updateTarget();
       score++;
       scoreLabel.textContent = score;
