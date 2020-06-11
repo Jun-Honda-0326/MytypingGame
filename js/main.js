@@ -12,8 +12,9 @@
   let loc = 0;
   let score = 0;
   let miss = 0;
-  const timeLimit = 3 * 1000;
+  const timeLimit = 10 * 1000;
   let startTime;
+  let isPlaying = false;
 
   const target = document.getElementById('target');
   const scoreLabel = document.getElementById('score');
@@ -38,15 +39,25 @@
      }, 10);
 
      if (timeLeft < 0){
+       isPlaying = false;
        clearTimeout(timeoutId);
        timerLabel.textContent = '0.00';
        setTimeout(()=>{
-         alert('Game Over');
+         showResult();
        }, 100);
     }
   }
 
+  function showResult(){
+    const accuracy = score + miss == 0? 0: score / (score + miss) * 100;
+      alert(`${score} letters, ${miss} misses, ${accuracy.toFixed(2)}% acuuracy!`);
+  }
+
   window.addEventListener('click',() =>{
+    if (isPlaying == true){
+      return;
+    }
+    isPlaying = true;
     target.textContent = word;
     startTime = Date.now();
     updateTimer();
